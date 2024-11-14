@@ -28,9 +28,7 @@ def download_video():
 
     try:
         yt = YouTube(url)
-        title = yt.title.replace(
-            " ", "_"
-        )  # Replace spaces with underscores for the filename
+        title = yt.title.replace(" ", "_")  # Replace spaces with underscores
         file_extension = "mp4" if format == "mp4" else "mp3"
 
         if format == "mp4":
@@ -67,5 +65,4 @@ def download_video():
         return jsonify({"status": "error", "message": str(e)})
 
 
-if __name__ == "__main__":
-    app.run(debug=True)
+# No need for app.run() on Vercel
