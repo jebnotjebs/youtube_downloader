@@ -1,11 +1,16 @@
 {
-  "builds": [
-    {
-      "src": "yt.py",
-      "use": "@vercel/python",
-      "config": {
-        "pythonVersion": "3.10"
+    "version": 2,
+    "builds": [
+      {
+        "src": "yt.py",
+        "use": "@vercel/python"
       }
-    }
-  ]
-}
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "yt.py"
+      }
+    ]
+  }
+  
