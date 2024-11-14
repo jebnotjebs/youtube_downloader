@@ -14,7 +14,7 @@ def index():
 def get_title():
     url = request.args.get("url")
     try:
-        yt = YouTube(url)
+        yt = YouTube(url, use_po_token=True) 
         title = yt.title
         return jsonify({"title": title})
     except Exception as e:
