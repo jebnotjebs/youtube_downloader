@@ -1,4 +1,10 @@
 {
+  "builds": [
+    {
+      "src": "yt.py",
+      "use": "@vercel/python"
+    }
+  ],
   "routes": [
     {
       "src": "/(.*)",
