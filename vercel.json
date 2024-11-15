@@ -1,17 +1,15 @@
 {
+  "version": 2,
   "builds": [
     {
-      "src": "yt.py",
-      "use": "@vercel/python",
-      "config": {
-        "pythonVersion": "3.9"
-      }
+      "src": "generateToken.js",  
+      "use": "@vercel/node"       
     }
   ],
   "routes": [
     {
-      "src": "/(.*)",
-      "dest": "yt.py"
+      "src": "/generate-token",  
+      "dest": "generateToken.js"
     }
   ]
 }
