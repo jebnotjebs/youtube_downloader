@@ -6,6 +6,6 @@
     "start": "node generateToken.js"
   },
   "dependencies": {
-    "youtube-po-token-generator": "^1.0.0"
+    "youtube-po-token-generator": "^0.3.0"
   }
 }
