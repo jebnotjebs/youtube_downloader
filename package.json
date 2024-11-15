@@ -1,0 +1,15 @@
+{
+  "name": "youtube_downloader",
+  "version": "1.0.0",
+  "description": "this is just a basic youtube downloader using your local server\r #run python yt.py",
+  "main": "generateToken.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "youtube-po-token-generator": "^0.3.0"
+  }
+}
