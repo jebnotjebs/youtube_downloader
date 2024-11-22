@@ -11,24 +11,17 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/get_title", methods=["GET"])
-def get_title():
-    url = request.args.get("url")
-    if not url:
-        return jsonify({"error": "No URL provided"}), 400
-
+@app.route("/test_token", methods=["GET"])
+def test_token():
     try:
-        print(f"Processing URL: {url}")  # Debug log
-        yt = YouTube(url, use_po_token=True)
-        title = yt.title
-        print(f"Fetched Title: {title}")  # Debug log
-        return jsonify({"title": title})
-    except ValueError as ve:
-        print(f"ValueError: {ve}")
-        return jsonify({"error": f"Invalid URL: {str(ve)}"}), 400
+        result = subprocess.run(
+            ["node", "generateToken.js"], capture_output=True, text=True, check=True
+        )
+        return jsonify({"token": result.stdout.strip()})
+    except subprocess.CalledProcessError as e:
+        return jsonify({"error": f"Subprocess failed: {e.stderr}"}), 500
     except Exception as e:
-        print(f"Unexpected Error: {e}")  # Debug log
-        return jsonify({"error": f"An unexpected error occurred: {str(e)}"}), 500
+        return jsonify({"error": str(e)}), 500
 
 
 @app.route("/download", methods=["GET"])
