@@ -18,14 +18,16 @@ def get_title():
         return jsonify({"error": "No URL provided"}), 400
 
     try:
+        print(f"Processing URL: {url}")  # Debug log
         yt = YouTube(url, use_po_token=True)
         title = yt.title
+        print(f"Fetched Title: {title}")  # Debug log
         return jsonify({"title": title})
     except ValueError as ve:
-        print(f"ValueError: {ve}")  # Logs for debugging
+        print(f"ValueError: {ve}")
         return jsonify({"error": f"Invalid URL: {str(ve)}"}), 400
     except Exception as e:
-        print(f"Exception: {e}")  # Logs for debugging
+        print(f"Unexpected Error: {e}")  # Debug log
         return jsonify({"error": f"An unexpected error occurred: {str(e)}"}), 500
 
 
