@@ -36,6 +36,8 @@ def generate_token():
         result = subprocess.run(
             ["node", "generateToken.js"], capture_output=True, text=True, check=True
         )
+        # Log the output of the script for debugging
+        print(f"Node.js script output: {result.stdout}")
 
         # Parse the generated output (expected to be a JSON string)
         tokens = result.stdout.strip()  # Get the output
@@ -47,8 +49,10 @@ def generate_token():
 
         return jsonify({"visitorData": visitor_data, "poToken": po_token})
     except subprocess.CalledProcessError as e:
+        print(f"Subprocess error: {e.stderr}")  # Log subprocess error
         return jsonify({"error": f"Subprocess failed: {e.stderr}"}), 500
     except Exception as e:
+        print(f"General error: {str(e)}")  # Log general error
         return jsonify({"error": str(e)}), 500
 
 
