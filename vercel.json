@@ -12,15 +12,12 @@
   ],
   "routes": [
     {
-      "src": "/(.*)",
+      "src": "/test_token",
       "dest": "wsgi.py"
     },
     {
       "src": "/generate_token",
       "dest": "generateToken.js"
     }
-  ],
-  "env": {
-    "DEBUG": "true"
-  }
+  ]
 }
