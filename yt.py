@@ -97,7 +97,3 @@ def download_video():
         return jsonify({"status": "error", "message": "Stream not available"})
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)})
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
