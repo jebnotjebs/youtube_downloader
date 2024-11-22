@@ -2,13 +2,13 @@
   "version": 2,
   "builds": [
     {
-      "src": "generateToken.js",  
-      "use": "@vercel/node"       
+      "src": "generateToken.js",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
     {
-      "src": "/generate-token",  
+      "src": "/generate-token",
       "dest": "generateToken.js"
     }
   ]
