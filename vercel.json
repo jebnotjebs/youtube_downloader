@@ -1,15 +1,10 @@
 {
   "version": 2,
   "builds": [
-    {
-      "src": "wsgi.py",
-      "use": "@vercel/python"
-    }
+    { "src": "yt.py", "use": "@vercel/python" },
+    { "src": "generateToken.js", "use": "@vercel/node" }
   ],
   "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "wsgi.py"
-    }
+    { "src": "/(.*)", "dest": "yt.py" }
   ]
 }

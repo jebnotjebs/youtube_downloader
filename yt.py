@@ -1,3 +1,4 @@
+import subprocess
 from flask import Flask, render_template, request, jsonify, send_file
 from pytubefix import YouTube
 from io import BytesIO
@@ -68,3 +69,20 @@ def download_video():
         return jsonify({"status": "error", "message": "Stream not available"})
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)})
+
+
+@app.route("/generate_token", methods=["GET"])
+def generate_token():
+    try:
+        # Run the Node.js script from Python
+        result = subprocess.run(
+            ["node", "generateToken.js"], capture_output=True, text=True
+        )
+        # Return the generated token as a JSON response
+        return jsonify({"token": result.stdout})
+    except Exception as e:
+        return jsonify({"error": str(e)})
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
