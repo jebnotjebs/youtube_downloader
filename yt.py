@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, jsonify, send_file
 from pytubefix import YouTube
 from io import BytesIO
 import json
+from urllib.parse import unquote  # Import unquote to decode URL
 
 
 app = Flask(__name__)
@@ -41,6 +42,9 @@ def download_video():
     url = request.args.get("url")
     format = request.args.get("format")
 
+    # Decode the URL to handle encoding properly
+    url = unquote(url)  # Decode URL if it has been URL-encoded
+
     try:
         yt = YouTube(url)
         title = yt.title.replace(" ", "_")  # Replace spaces with underscores
@@ -78,19 +82,6 @@ def download_video():
         return jsonify({"status": "error", "message": "Stream not available"})
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)})
-
-
-@app.route("/generate_token", methods=["GET"])
-def generate_token():
-    try:
-        # Run the Node.js script from Python
-        result = subprocess.run(
-            ["node", "generateToken.js"], capture_output=True, text=True
-        )
-        # Return the generated token as a JSON response
-        return jsonify({"token": result.stdout})
-    except Exception as e:
-        return jsonify({"error": str(e)})
 
 
 if __name__ == "__main__":
