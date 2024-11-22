@@ -14,6 +14,21 @@ def index():
     return render_template("index.html")
 
 
+@app.route("/get_title", methods=["GET"])
+def get_title():
+    url = request.args.get("url")
+    if not url:
+        return jsonify({"error": "No URL provided"}), 400
+
+    url = unquote(url)  # Decode URL if it has been URL-encoded
+    try:
+        yt = YouTube(url, use_po_token=True)
+        title = yt.title
+        return jsonify({"title": title})
+    except Exception as e:
+        return jsonify({"error": f"An error occurred: {str(e)}"}), 500
+
+
 @app.route("/generate_token", methods=["GET"])
 def generate_token():
     try:
