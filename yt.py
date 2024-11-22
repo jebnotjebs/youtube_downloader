@@ -13,12 +13,17 @@ def index():
 @app.route("/get_title", methods=["GET"])
 def get_title():
     url = request.args.get("url")
+    if not url:
+        return jsonify({"error": "No URL provided"}), 400
+
     try:
-        yt = YouTube(url, use_po_token=True) 
+        yt = YouTube(url, use_po_token=True)
         title = yt.title
         return jsonify({"title": title})
-    except Exception as e:
-        return jsonify({"error": str(e)})
+    except ValueError as ve:  # Handle specific library errors
+        return jsonify({"error": f"Invalid URL: {str(ve)}"}), 400
+    except Exception as e:  # Catch all other exceptions
+        return jsonify({"error": f"An unexpected error occurred: {str(e)}"}), 500
 
 
 @app.route("/download", methods=["GET"])
