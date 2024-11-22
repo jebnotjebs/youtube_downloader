@@ -1,4 +1,4 @@
-from yt import app
+from yt import app  # Import the Flask app from yt.py
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
