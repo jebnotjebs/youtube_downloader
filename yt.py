@@ -21,9 +21,11 @@ def get_title():
         yt = YouTube(url, use_po_token=True)
         title = yt.title
         return jsonify({"title": title})
-    except ValueError as ve:  # Handle specific library errors
+    except ValueError as ve:
+        print(f"ValueError: {ve}")  # Logs for debugging
         return jsonify({"error": f"Invalid URL: {str(ve)}"}), 400
-    except Exception as e:  # Catch all other exceptions
+    except Exception as e:
+        print(f"Exception: {e}")  # Logs for debugging
         return jsonify({"error": f"An unexpected error occurred: {str(e)}"}), 500
 
 
