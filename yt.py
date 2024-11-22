@@ -11,13 +11,23 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/test_token", methods=["GET"])
-def test_token():
+@app.route("/generate_token", methods=["GET"])
+def generate_token():
     try:
+        # Run the Node.js script from Python
         result = subprocess.run(
             ["node", "generateToken.js"], capture_output=True, text=True, check=True
         )
-        return jsonify({"token": result.stdout.strip()})
+
+        # Parse the generated output (expected to be a JSON string)
+        tokens = result.stdout.strip()  # Get the output
+        tokens_json = json.loads(tokens)  # Parse as JSON
+
+        # Access visitor data and po_token from the parsed JSON
+        visitor_data = tokens_json.get("visitorData")
+        po_token = tokens_json.get("poToken")
+
+        return jsonify({"visitorData": visitor_data, "poToken": po_token})
     except subprocess.CalledProcessError as e:
         return jsonify({"error": f"Subprocess failed: {e.stderr}"}), 500
     except Exception as e:
