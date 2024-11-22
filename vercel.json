@@ -2,14 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "generateToken.js",
-      "use": "@vercel/node"
+      "src": "wsgi.py",
+      "use": "@vercel/python"
     }
   ],
   "routes": [
     {
-      "src": "/generate-token",
-      "dest": "generateToken.js"
+      "src": "/(.*)",
+      "dest": "wsgi.py"
     }
   ]
 }
